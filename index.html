@@ -29,34 +29,111 @@
       width: 100vw; height: 100vh;
       overflow-x: hidden;
     }
-    /* FOND STYLE "CARRES" EN CSS */
-    body::before, body::after {
-      content: '';
+    #login-screen {
       position: fixed;
-      z-index: 0;
-      pointer-events: none;
+      inset: 0;
+      background: linear-gradient(135deg, #e0e7ef 0%, #eaf6ff 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      min-height: 100vh;
+      width: 100vw;
+      transition: opacity 0.3s;
     }
-    body::before {
-      top: 0; left: 0;
-      width: 45vw; height: 44vh;
-      background:
-        linear-gradient(135deg, var(--accent) 85%, transparent 100%),
-        linear-gradient(135deg, var(--accent2) 35%, transparent 100%);
-      opacity: 0.18;
-      clip-path: polygon(0 0, 100% 0, 55% 60%, 0 100%);
-      border-radius: 0 0 90px 0;
+    .login-box {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 6px 32px #96b5d733;
+      border: 2.5px solid #bad6f7;
+      padding: 44px 36px 32px 36px;
+      text-align: center;
+      max-width: 340px;
+      width: 90vw;
     }
-    body::after {
-      right: 0; bottom: 0;
-      width: 49vw; height: 48vh;
-      background:
-        linear-gradient(135deg, var(--accent2) 60%, transparent 100%),
-        linear-gradient(135deg, var(--accent) 55%, transparent 100%);
-      opacity: 0.18;
-      clip-path: polygon(100% 100%, 0 100%, 60% 45%, 100% 0);
-      border-radius: 90px 0 0 0;
+    .login-box h2 {
+      font-size: 1.36rem;
+      font-weight: 800;
+      color: #222c38;
+      margin-bottom: 18px;
+      letter-spacing: 0.03em;
     }
-
+    .login-box input[type="password"] {
+      width: 96%;
+      padding: 10px 12px;
+      font-size: 1.06rem;
+      border: 2px solid #a7c2e7;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      margin-top: 12px;
+      background: #f4f8fd;
+      transition: border 0.2s;
+    }
+    .login-box input[type="password"]:focus {
+      border-color: var(--main-blue);
+      outline: none;
+    }
+    .login-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 16px;
+      margin-top: -10px;
+    }
+    .login-box input[type="checkbox"] {
+      accent-color: var(--main-blue);
+      margin-right: 8px;
+      width: 17px; height: 17px;
+      border-radius: 4px;
+      border: 1.2px solid var(--main-blue);
+      vertical-align: middle;
+    }
+    .login-row label {
+      font-size: 1.01rem;
+      color: #333;
+      cursor: pointer;
+      user-select: none;
+    }
+    .login-btn {
+      padding: 11px 38px;
+      background: linear-gradient(90deg, #3b5998 60%, #6db0e3 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      box-shadow: 0 2px 10px #bad6f755;
+      transition: background 0.18s;
+    }
+    .login-btn:hover {
+      background: linear-gradient(90deg, #6db0e3 10%, #3b5998 80%);
+    }
+    .login-error {
+      color: #c1121f;
+      background: #ffe7e7;
+      border-radius: 6px;
+      font-size: 1rem;
+      padding: 7px 0 3px 0;
+      margin-bottom: 7px;
+      margin-top: 4px;
+      font-weight: 600;
+      display: none;
+    }
+    .logout-link {
+      display: inline-block;
+      margin-top: 18px;
+      margin-bottom: 0;
+      font-size: 0.98rem;
+      color: #4086e4;
+      text-decoration: underline;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    /* --- Reste du style identique à la version précédente --- */
     .content {
       position: relative;
       z-index: 2;
@@ -223,70 +300,28 @@
       .cat-title { font-size: 0.75rem;}
       .note-col { width: 26vw; min-width: 40vw;}
     }
-    /* PRINT OPTIMIZATION */
     @media print {
-      @page {
-        size: Letter portrait;
-        margin: 0.35in;
-      }
-      html, body {
-        width: 100%;
-        height: 100%;
-        background: #fff !important;
-        overflow: visible !important;
-        color: #111 !important;
-        font-size: 0.81rem !important;
-      }
-      body::before, body::after { display: none !important; }
-      .content {
-        padding: 0 !important;
-        width: 100% !important;
-        min-width: 0 !important;
-        background: #fff !important;
-      }
-      .glass-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-shadow: none !important;
-        background: #fff !important;
-        page-break-inside: avoid !important;
-        border-color: #c1d6ee !important;
-        padding: 3px 2px 2px 2px !important;
-        margin: 0 0 2px 0 !important;
-      }
-      .title-box {
-        box-shadow: none !important;
-        margin: 5px auto 3px auto !important;
-        font-size: 0.82rem !important;
-        padding: 1px 1vw !important;
-        background: #e9f3fa !important;
-        color: #273652 !important;
-      }
-      .cat-title {
-        box-shadow: none !important;
-        font-size: 0.67rem !important;
-        min-width: 0 !important;
-        padding: 1px 2px !important;
-        background: #e6fbe8 !important;
-      }
-      table, th, td {
-        background: #fff !important;
-        font-size: 0.61rem !important;
-        padding: 1px 0.5px !important;
-      }
-      .note-col { width: 20px !important; }
-      .note-field {
-        min-height: 7px !important;
-        font-size: 0.66rem !important;
-        padding: 1px 1px !important;
-      }
+      #login-screen { display: none !important; }
       .print-btn { display: none !important; }
     }
   </style>
 </head>
 <body>
-  <div class="content">
-    <!-- Titre principal -->
+  <!-- PAGE DE PROTECTION -->
+  <div id="login-screen">
+    <form class="login-box" onsubmit="return false;">
+      <h2><i class="fa-solid fa-lock"></i> Accès protégé</h2>
+      <input id="password" type="password" placeholder="Mot de passe" autocomplete="off" />
+      <div class="login-row">
+        <input id="remember" type="checkbox" />
+        <label for="remember">Se souvenir de moi</label>
+      </div>
+      <div id="login-error" class="login-error">Mot de passe incorrect</div>
+      <button class="login-btn" onclick="checkPassword()">Entrer</button>
+    </form>
+  </div>
+  <!-- CONTENU PROTÉGÉ -->
+  <div class="content" id="main-content" style="display:none">
     <div class="title-box">Offre de services et préparation véhicule</div>
     <form>
       <!-- Extension de garantie -->
@@ -400,4 +435,47 @@
         </table>
       </div>
       <!-- Bouton Imprimer -->
-      <button type
+      <button type="button" class="print-btn" onclick="window.print()">
+        <i class="fa-solid fa-print"></i> Imprimer / Télécharger
+      </button>
+      <button type="button" class="logout-link" onclick="logout()">Se déconnecter</button>
+    </form>
+  </div>
+  <script>
+    // mot de passe à modifier ici
+    const PASSWORD = "vehicule2024";
+    // Clé locale
+    const LOCAL_KEY = "checklist-vehicule-auth";
+    // Si déjà connecté, ne pas afficher la page login
+    if (localStorage.getItem(LOCAL_KEY) === "1") {
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("main-content").style.display = "";
+      document.body.style.overflow = "";
+    }
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      const remember = document.getElementById("remember").checked;
+      if(input === PASSWORD) {
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("main-content").style.display = "";
+        document.body.style.overflow = "";
+        if (remember) localStorage.setItem(LOCAL_KEY, "1");
+      } else {
+        document.getElementById("login-error").style.display = "block";
+      }
+    }
+    // permet d'appuyer sur Enter pour valider
+    document.getElementById("password").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        checkPassword();
+      }
+    });
+    // Déconnexion
+    function logout() {
+      localStorage.removeItem(LOCAL_KEY);
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>
