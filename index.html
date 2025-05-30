@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Offre de services et préparation véhicule</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --main-blue: #5e81f4;
+      --box-blue: #e6f0fb;
+      --glass-bg: #fff;
+      --glass-border: #e5e7eb;
+      --cat-green: #e6fbe8;
+      --cat-green-dark: #108469;
+      --table-head: #e3eaf8;
+      --text-main: #222c38;
+      --note-bg: #f6f8fa;
+      --accent: #8ecae6;
+      --accent2: #219ebc;
+    }
+    html, body {
+      margin: 0; padding: 0;
+      background: #fff !important;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      color: var(--text-main);
+      width: 100vw; height: 100vh;
+      overflow-x: hidden;
+    }
+    /* FOND STYLE "CARRES" EN CSS */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+    }
+    body::before {
+      top: 0; left: 0;
+      width: 45vw; height: 44vh;
+      background:
+        linear-gradient(135deg, var(--accent) 85%, transparent 100%),
+        linear-gradient(135deg, var(--accent2) 35%, transparent 100%);
+      opacity: 0.18;
+      clip-path: polygon(0 0, 100% 0, 55% 60%, 0 100%);
+      border-radius: 0 0 90px 0;
+    }
+    body::after {
+      right: 0; bottom: 0;
+      width: 49vw; height: 48vh;
+      background:
+        linear-gradient(135deg, var(--accent2) 60%, transparent 100%),
+        linear-gradient(135deg, var(--accent) 55%, transparent 100%);
+      opacity: 0.18;
+      clip-path: polygon(100% 100%, 0 100%, 60% 45%, 100% 0);
+      border-radius: 90px 0 0 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 30px;
+      background: transparent;
+    }
+    .title-box {
+      margin-top: 36px;
+      margin-bottom: 18px;
+      background: var(--box-blue);
+      color: #253f5f;
+      font-size: 2.1rem;
+      font-weight: 800;
+      padding: 16px 48px;
+      border-radius: 17px;
+      box-shadow: 0 2px 8px #eaeaea99;
+      letter-spacing: 0.03em;
+      text-align: center;
+      border: 2.5px solid #bad6f7;
+      text-shadow: 0 2px 8px #f6f9ffdd;
+      display: inline-block;
+    }
+    .glass-card {
+      margin: 28px 0 0 0;
+      background: var(--glass-bg);
+      border-radius: 20px;
+      box-shadow: 0 4px 24px 0 #e5e7eb24;
+      border: 2px solid var(--glass-border);
+      width: 1080px;
+      max-width: 97vw;
+      padding: 20px 24px 14px 24px;
+      position: relative;
+      transition: box-shadow 0.17s;
+    }
+    .cat-title-wrap {
+      margin-bottom: 13px;
+    }
+    .cat-title {
+      display: inline-flex;
+      align-items: center;
+      background: var(--cat-green);
+      color: var(--cat-green-dark);
+      font-weight: 900;
+      font-size: 1.07rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 7px #eafdf2a5;
+      padding: 8px 18px 8px 11px;
+      letter-spacing: 0.01em;
+      border: 1.2px solid #bbf7d0;
+      gap: 9px;
+      min-width: 170px;
+    }
+    .cat-title i {
+      font-size: 1.11em;
+      color: var(--cat-green-dark);
+      filter: drop-shadow(0 2px 2px #fff);
+      margin-right: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: transparent;
+      font-size: 1.01rem;
+    }
+    th, td {
+      padding: 8px 4px;
+      vertical-align: middle;
+      border-bottom: 1.1px solid #e7e5e4;
+    }
+    th {
+      color: #273652;
+      font-weight: 800;
+      font-size: 1.01rem;
+      background: var(--table-head);
+      text-align: left;
+      border-radius: 4px 4px 0 0;
+    }
+    td {
+      background: none;
+      font-size: 0.98rem;
+    }
+    .check-col {
+      text-align: center;
+      width: 35px;
+    }
+    .note-col {
+      width: 54%;
+      min-width: 260px;
+      padding-right: 0;
+    }
+    .note-field {
+      width: 99%;
+      min-height: 56px;
+      border: 2px solid #d1d5db;
+      border-radius: 7px;
+      padding: 8px 12px;
+      font-size: 1.08rem;
+      background: var(--note-bg);
+      box-shadow: 0 1px 8px #eef1f477;
+      transition: border 0.22s, box-shadow 0.2s;
+      margin-bottom: 1px;
+      resize: vertical;
+    }
+    .note-field:focus {
+      border-color: var(--main-blue);
+      outline: none;
+      box-shadow: 0 2px 10px #1d284033;
+    }
+    .checkbox {
+      width: 16px; height: 16px;
+      accent-color: var(--main-blue);
+      border: 1.2px solid var(--main-blue);
+      border-radius: 5px;
+      background: #fff;
+      cursor: pointer;
+      margin: 0 3px;
+      vertical-align: middle;
+      box-shadow: 0 1px 2px #eee;
+      transition: box-shadow 0.2s, border 0.2s;
+    }
+    .checkbox:focus { box-shadow: 0 0 0 2px #3b82f644; }
+    .fa-car-side, .fa-soap, .fa-shield-halved, .fa-hand-holding-heart {
+      filter: drop-shadow(0 2px 2px #fff);
+    }
+    .print-btn {
+      margin: 22px auto 8px auto;
+      background: linear-gradient(90deg, #3b5998 60%, #6db0e3 100%);
+      color: #fff;
+      border: none;
+      border-radius: 11px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      padding: 9px 28px;
+      box-shadow: 0 4px 16px #b8c1d9a1;
+      cursor: pointer;
+      transition: background 0.19s;
+      z-index: 4;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: center;
+    }
+    .print-btn:hover { background: linear-gradient(90deg, #6db0e3 10%, #3b5998 80%);}
+    @media (max-width: 1200px) {
+      .glass-card { width: 99vw; padding: 2vw 1vw;}
+      .cat-title { min-width: 80px; font-size: 0.97rem; padding: 6px 8px;}
+      .title-box { font-size: 1.17rem; padding: 7px 3vw;}
+      .note-col { min-width: 80px;}
+    }
+    @media (max-width: 900px) {
+      .note-col { width: 40vw; min-width: 38vw;}
+      .note-field { font-size: 1.01rem; min-height: 36px;}
+    }
+    @media (max-width: 700px) {
+      .glass-card { width: 99vw; padding: 1vw 0.3vw;}
+      .title-box { font-size: 0.91rem; padding: 5px 1vw;}
+      .cat-title { font-size: 0.75rem;}
+      .note-col { width: 26vw; min-width: 40vw;}
+    }
+    /* PRINT OPTIMIZATION */
+    @media print {
+      @page {
+        size: Letter portrait;
+        margin: 0.35in;
+      }
+      html, body {
+        width: 100%;
+        height: 100%;
+        background: #fff !important;
+        overflow: visible !important;
+        color: #111 !important;
+        font-size: 0.81rem !important;
+      }
+      body::before, body::after { display: none !important; }
+      .content {
+        padding: 0 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        background: #fff !important;
+      }
+      .glass-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-shadow: none !important;
+        background: #fff !important;
+        page-break-inside: avoid !important;
+        border-color: #c1d6ee !important;
+        padding: 3px 2px 2px 2px !important;
+        margin: 0 0 2px 0 !important;
+      }
+      .title-box {
+        box-shadow: none !important;
+        margin: 5px auto 3px auto !important;
+        font-size: 0.82rem !important;
+        padding: 1px 1vw !important;
+        background: #e9f3fa !important;
+        color: #273652 !important;
+      }
+      .cat-title {
+        box-shadow: none !important;
+        font-size: 0.67rem !important;
+        min-width: 0 !important;
+        padding: 1px 2px !important;
+        background: #e6fbe8 !important;
+      }
+      table, th, td {
+        background: #fff !important;
+        font-size: 0.61rem !important;
+        padding: 1px 0.5px !important;
+      }
+      .note-col { width: 20px !important; }
+      .note-field {
+        min-height: 7px !important;
+        font-size: 0.66rem !important;
+        padding: 1px 1px !important;
+      }
+      .print-btn { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <!-- Titre principal -->
+    <div class="title-box">Offre de services et préparation véhicule</div>
+    <form>
+      <!-- Extension de garantie -->
+      <div class="glass-card">
+        <div class="cat-title-wrap">
+          <div class="cat-title"><i class="fa-solid fa-car-side"></i> Extension de garantie</div>
+        </div>
+        <table>
+          <tr>
+            <th>Produit / Option</th>
+            <th class="check-col">Oui</th>
+            <th class="check-col">Non</th>
+            <th class="note-col">Notes</th>
+          </tr>
+          <tr>
+            <td>Extension de garantie couverture complète</td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="garantie_oui"></td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="garantie_non"></td>
+            <td class="note-col"><textarea class="note-field"></textarea></td>
+          </tr>
+        </table>
+      </div>
+      <!-- Préparation esthétique -->
+      <div class="glass-card">
+        <div class="cat-title-wrap">
+          <div class="cat-title"><i class="fa-solid fa-soap"></i> Préparation esthétique du véhicule</div>
+        </div>
+        <table>
+          <tr>
+            <th>Produit / Option</th>
+            <th class="check-col">Oui</th>
+            <th class="check-col">Non</th>
+            <th class="note-col">Notes</th>
+          </tr>
+          <tr>
+            <td>Antirouille</td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="antirouille_oui"></td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="antirouille_non"></td>
+            <td class="note-col"><textarea class="note-field"></textarea></td>
+          </tr>
+          <tr>
+            <td>Par Pierre de Capot</td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="capot_oui"></td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="capot_non"></td>
+            <td class="note-col"><textarea class="note-field"></textarea></td>
+          </tr>
+          <tr>
+            <td>Scellant à peinture</td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="scellant_oui"></td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="scellant_non"></td>
+            <td class="note-col"><textarea class="note-field"></textarea></td>
+          </tr>
+          <tr>
+            <td>Système antivol</td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="antivol_oui"></td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="antivol_non"></td>
+            <td class="note-col"><textarea class="note-field"></textarea></td>
+          </tr>
+        </table>
+      </div>
+      <!-- Assurance crédit -->
+      <div class="glass-card">
+        <div class="cat-title-wrap">
+          <div class="cat-title"><i class="fa-solid fa-shield-halved"></i> Assurance crédit</div>
+        </div>
+        <table>
+          <tr>
+            <th>Produit / Option</th>
+            <th class="check-col">Oui</th>
+            <th class="check-col">Non</th>
+            <th class="note-col">Notes</th>
+          </tr>
+          <tr>
+            <td>Assurance-vie</td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="vie_oui"></td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="vie_non"></td>
+            <td class="note-col"><textarea class="note-field"></textarea></td>
+          </tr>
+          <tr>
+            <td>Assurance invalidité</td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="invalidite_oui"></td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="invalidite_non"></td>
+            <td class="note-col"><textarea class="note-field"></textarea></td>
+          </tr>
+          <tr>
+            <td>Assurance maladie grave</td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="maladie_oui"></td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="maladie_non"></td>
+            <td class="note-col"><textarea class="note-field"></textarea></td>
+          </tr>
+        </table>
+      </div>
+      <!-- Assurance de remplacement -->
+      <div class="glass-card">
+        <div class="cat-title-wrap">
+          <div class="cat-title"><i class="fa-solid fa-hand-holding-heart"></i> Assurance de remplacement</div>
+        </div>
+        <table>
+          <tr>
+            <th>Produit / Option</th>
+            <th class="check-col">Oui</th>
+            <th class="check-col">Non</th>
+            <th class="note-col">Notes</th>
+          </tr>
+          <tr>
+            <td>Assurance de remplacement</td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="remplacement_oui"></td>
+            <td class="check-col"><input type="checkbox" class="checkbox" name="remplacement_non"></td>
+            <td class="note-col"><textarea class="note-field"></textarea></td>
+          </tr>
+        </table>
+      </div>
+      <!-- Bouton Imprimer -->
+      <button type
